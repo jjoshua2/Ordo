@@ -27,6 +27,9 @@
 #include "boolean.h"
 #include "mytypes.h"
 #include "ordolim.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 typedef struct GROUP group_t;
 typedef struct CONNECT connection_t;
@@ -131,6 +134,9 @@ extern bool_t well_connected(const struct ENCOUNTERS* pEncounters,
 
 extern void timer_reset(void);
 extern double timer_get(void);
+#ifdef __cplusplus
+}
+#endif
 
 /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 #endif

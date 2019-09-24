@@ -175,9 +175,9 @@ static bool_t supporting_encmem_init(gamesnum_t nenc, super_t* sp,
   struct ENC* a;
   selink_t* b;
 
-  if (NULL == (a = memnew(sizeof(struct ENC) * (size_t)nenc))) {
+  if (NULL == (a = (ENC*)memnew(sizeof(struct ENC) * (size_t)nenc))) {
     return FALSE;
-  } else if (NULL == (b = memnew(sizeof(selink_t) * (size_t)nenc))) {
+  } else if (NULL == (b = (selink_t*)memnew(sizeof(selink_t) * (size_t)nenc))) {
     memrel(a);
     return FALSE;
   }
@@ -209,27 +209,27 @@ bool_t groupvar_init(group_var_t* gv, player_t nplayers, gamesnum_t nenc) {
   size_t se = sizeof(player_t);
   size_t sf = sizeof(group_t*);
 
-  if (NULL == (a = memnew(sa * (size_t)nplayers))) {
+  if (NULL == (a = (player_t*)memnew(sa * (size_t)nplayers))) {
     return FALSE;
-  } else if (NULL == (b = memnew(sb * (size_t)nplayers))) {
+  } else if (NULL == (b = (player_t*)memnew(sb * (size_t)nplayers))) {
     memrel(a);
     return FALSE;
-  } else if (NULL == (c = memnew(sc * (size_t)nplayers))) {
+  } else if (NULL == (c = (groupcell_t*)memnew(sc * (size_t)nplayers))) {
     memrel(a);
     memrel(b);
     return FALSE;
-  } else if (NULL == (d = memnew(sd * (size_t)nplayers))) {
+  } else if (NULL == (d = (node_t*)memnew(sd * (size_t)nplayers))) {
     memrel(a);
     memrel(b);
     memrel(c);
     return FALSE;
-  } else if (NULL == (e = memnew(se * (size_t)nplayers))) {
+  } else if (NULL == (e = (player_t*)memnew(se * (size_t)nplayers))) {
     memrel(a);
     memrel(b);
     memrel(c);
     memrel(d);
     return FALSE;
-  } else if (NULL == (f = memnew(sf * (size_t)nplayers))) {
+  } else if (NULL == (f = (group_t**)memnew(sf * (size_t)nplayers))) {
     memrel(a);
     memrel(b);
     memrel(c);
@@ -296,7 +296,7 @@ void groupvar_done(group_var_t* gv) {
 static bool_t group_buffer_init(struct GROUP_BUFFER* g, player_t n) {
   group_t* p;
   size_t elements = (size_t)n + 1;  // one extra added for the head
-  if (NULL != (p = memnew(sizeof(group_t) * elements))) {
+  if (NULL != (p = (group_t*)memnew(sizeof(group_t) * elements))) {
     g->list = p;
     g->tail = NULL;
     g->prehead = NULL;
@@ -319,7 +319,7 @@ static void group_buffer_done(struct GROUP_BUFFER* g) {
 static bool_t participant_buffer_init(struct PARTICIPANT_BUFFER* x,
                                       player_t n) {
   participant_t* p;
-  if (NULL != (p = memnew(sizeof(participant_t) * (size_t)n))) {
+  if (NULL != (p = (participant_t*)memnew(sizeof(participant_t) * (size_t)n))) {
     x->list = p;
     x->n = 0;
     x->max = n;
@@ -337,7 +337,7 @@ static void participant_buffer_done(struct PARTICIPANT_BUFFER* x) {
 
 static bool_t connection_buffer_init(struct CONNECT_BUFFER* x, gamesnum_t n) {
   connection_t* p;
-  if (NULL != (p = memnew(sizeof(connection_t) * (size_t)n))) {
+  if (NULL != (p = (connection_t*)memnew(sizeof(connection_t) * (size_t)n))) {
     x->list = p;
     x->n = 0;
     x->max = n;
@@ -478,8 +478,8 @@ static void pnode_connect(pnode_t* pn, player_t i, player_t j) {
 }
 
 static int compare_selink(const void* a, const void* b) {
-  const selink_t* sa = a;
-  const selink_t* sb = b;
+  const selink_t* sa = (selink_t*)a;
+  const selink_t* sb = (selink_t*)b;
 
   if (sa->iwin < sb->iwin) return -1;
   if (sa->iwin > sb->iwin) return 1;
@@ -530,7 +530,7 @@ static void scan_encounters(const struct ENC* enc, gamesnum_t n_enc,
   }
 
   //
-  if (NULL != (xx = memnew((size_t)n_plyrs * sizeof(pnode_t)))) {
+  if (NULL != (xx = (pnode_t*)memnew((size_t)n_plyrs * sizeof(pnode_t)))) {
     pnode_clear(xx, n_plyrs);
 
     for (e = 0, n_a = 0; e < n_enc; e++) {
@@ -837,7 +837,7 @@ static void groupvar_simplify(group_var_t* gv) {
   group_t** cmbbuf;
   size_t mem = (size_t)gv->nplayers * sizeof(group_t*);
 
-  if (NULL != (cmbbuf = memnew(mem))) {
+  if (NULL != (cmbbuf = (group_t**)memnew(mem))) {
     g = groupset_head(gv);
     assert(g);
 
@@ -1092,8 +1092,8 @@ static bool_t sorted(participant_t* a, participant_t* b);
 
 static int compare_cell(const void* a, const void* b) {
   int r;
-  const groupcell_t* ap = a;
-  const groupcell_t* bp = b;
+  const groupcell_t* ap = (const groupcell_t*)a;
+  const groupcell_t* bp = (const groupcell_t*)b;
 
   r = ap->count < bp->count ? 1 : (ap->count > bp->count ? -1 : 0);
 
@@ -1478,7 +1478,7 @@ group_var_t* GV_make(const struct ENCOUNTERS* encounters,
   assert(encounters && players);
   assert(encounters->n > 0);
 
-  if (NULL != (gv = memnew(sizeof(group_var_t)))) {
+  if (NULL != (gv = (group_var_t*)memnew(sizeof(group_var_t)))) {
     if (groupvar_init(gv, players->n, encounters->n)) {
       n = groupvar_build(gv, players->n, players->name, players, encounters);
       ok = n > 0 && TRUE;

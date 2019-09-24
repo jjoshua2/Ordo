@@ -74,7 +74,7 @@ bool_t ba_init(struct BITARRAY* ba, player_t max) {
   assert(ba);
   ba->max = 0;
   ba->pod = NULL;
-  ok = NULL != (ptr = memnew(sizeof(pod_t) * max_p));
+  ok = NULL != (ptr = (uint64_t*)memnew(sizeof(pod_t) * max_p));
   if (ok) {
     ba->max = max;
     ba->pod = ptr;

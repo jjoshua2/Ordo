@@ -298,7 +298,7 @@ bool_t relpriors_replicate(struct rel_prior_set* rps,
   n = rps->n;
   x = rps->x;
 
-  if (x && NULL != (newx = memnew(sizeof(struct relprior) * (size_t)n))) {
+  if (x && NULL != (newx = (relprior*)memnew(sizeof(struct relprior) * (size_t)n))) {
     for (i = 0; i < n; i++) {
       newx[i] = x[i];
     }

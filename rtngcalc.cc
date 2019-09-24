@@ -72,7 +72,7 @@ extern gamesnum_t calc_rating(
 
     assert(plyrs->n > 0);
     if (NULL !=
-        (ratingtmp_memory = memnew(sizeof(double) * (size_t)plyrs->n))) {
+        (ratingtmp_memory = (double*)memnew(sizeof(double) * (size_t)plyrs->n))) {
       assert(ratings_sanity(plyrs->n, rat->ratingof));
 
       ret = calc_rating_ordo(

@@ -99,37 +99,37 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="bitarray.c" />
-    <ClCompile Include="cegt.c" />
+    <ClCompile Include="bitarray.cc" />
+    <ClCompile Include="cegt.cc" />
     <ClCompile Include="csv.c" />
-    <ClCompile Include="encount.c" />
+    <ClCompile Include="encount.cc" />
     <ClCompile Include="fit1d.c" />
     <ClCompile Include="gauss.c" />
-    <ClCompile Include="groups.c" />
-    <ClCompile Include="indiv.c" />
-    <ClCompile Include="inidone.c" />
+    <ClCompile Include="groups.cc" />
+    <ClCompile Include="indiv.cc" />
+    <ClCompile Include="inidone.cc" />
     <ClCompile Include="justify.c" />
-    <ClCompile Include="main.c" />
+    <ClCompile Include="main.cc" />
     <ClCompile Include="myhelp.c" />
     <ClCompile Include="mymem.c" />
     <ClCompile Include="myopt\myopt.c" />
     <ClCompile Include="mystr.c" />
     <ClCompile Include="mytimer.c" />
-    <ClCompile Include="namehash.c" />
+    <ClCompile Include="namehash.cc" />
     <ClCompile Include="pgnget.cc" />
-    <ClCompile Include="plyrs.c" />
+    <ClCompile Include="plyrs.cc" />
     <ClCompile Include="proginfo.c" />
-    <ClCompile Include="ra.c" />
-    <ClCompile Include="randfast.c" />
-    <ClCompile Include="rating.c" />
-    <ClCompile Include="ratingb.c" />
-    <ClCompile Include="relpman.c" />
-    <ClCompile Include="relprior.c" />
-    <ClCompile Include="report.c" />
-    <ClCompile Include="rtngcalc.c" />
-    <ClCompile Include="sim.c" />
+    <ClCompile Include="ra.cc" />
+    <ClCompile Include="randfast.cc" />
+    <ClCompile Include="rating.cc" />
+    <ClCompile Include="ratingb.cc" />
+    <ClCompile Include="relpman.cc" />
+    <ClCompile Include="relprior.cc" />
+    <ClCompile Include="report.cc" />
+    <ClCompile Include="rtngcalc.cc" />
+    <ClCompile Include="sim.cc" />
     <ClCompile Include="strlist.c" />
-    <ClCompile Include="summations.c" />
+    <ClCompile Include="summations.cc" />
     <ClCompile Include="sysport\sysport.c" />
     <ClCompile Include="xpect.c" />
   </ItemGroup>

@@ -21,11 +21,17 @@
 #if !defined(H_PINFO)
 #define H_PINFO
 /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 const char* proginfo_author(void);
 const char* proginfo_current_year(void);
 const char* proginfo_version(void);
 const char* proginfo_name(void);
+#ifdef __cplusplus
+}
+#endif
 
 /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 #endif

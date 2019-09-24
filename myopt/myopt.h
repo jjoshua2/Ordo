@@ -22,6 +22,9 @@
 #if !defined(H_MYOPT)
 #define H_MYOPT
 /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 enum char_options { END_OF_OPTIONS = -1 };
 
@@ -45,6 +48,9 @@ struct option {
 
 extern int options_l(int argc, char* const argv[], const char* legal,
                      const struct option* longopts, int* longindex);
+#ifdef __cplusplus
+}
+#endif
 
 /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 #endif

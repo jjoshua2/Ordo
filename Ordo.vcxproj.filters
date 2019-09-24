@@ -15,16 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="bitarray.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="cegt.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="csv.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="encount.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="fit1d.c">
@@ -33,19 +24,7 @@
     <ClCompile Include="gauss.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="groups.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="indiv.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="inidone.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="justify.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="myhelp.c">
@@ -60,46 +39,10 @@
     <ClCompile Include="mytimer.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="namehash.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="plyrs.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="proginfo.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ra.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="randfast.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="rating.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ratingb.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="relpman.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="relprior.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="report.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="rtngcalc.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="sim.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="strlist.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="summations.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="xpect.c">
@@ -112,6 +55,63 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="pgnget.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="inidone.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="encount.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sim.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bitarray.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cegt.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="groups.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="indiv.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="namehash.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="plyrs.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ra.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="randfast.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rating.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ratingb.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="relpman.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="relprior.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="report.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rtngcalc.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="summations.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -23,6 +23,9 @@
 /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
 #include "boolean.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 extern bool_t TIMELOG;
 
@@ -30,6 +33,9 @@ extern void timer_reset(void);
 extern double timer_get(void);
 extern void timelog(const char* s);
 extern void timelog_ld(const char* s, long ld);
+#ifdef __cplusplus
+}
+#endif
 
 /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 #endif

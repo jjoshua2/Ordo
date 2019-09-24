@@ -89,16 +89,16 @@ bool_t summations_calloc(struct summations* sm, player_t nplayers) {
   assert(sm);
   assert(nplayers > 0);
 
-  if (NULL == (a = memnew(sa * (size_t)nplayers))) {
+  if (NULL == (a = (double*)memnew(sa * (size_t)nplayers))) {
     return FALSE;
-  } else if (NULL == (b = memnew(sb * (size_t)nplayers))) {
+  } else if (NULL == (b = (double*)memnew(sb * (size_t)nplayers))) {
     memrel(a);
     return FALSE;
-  } else if (NULL == (c = memnew(sc * (size_t)nplayers))) {
+  } else if (NULL == (c = (double*)memnew(sc * (size_t)nplayers))) {
     memrel(a);
     memrel(b);
     return FALSE;
-  } else if (NULL == (d = memnew(sd))) {
+  } else if (NULL == (d = (DEVIATION_ACC*)memnew(sd))) {
     memrel(a);
     memrel(b);
     memrel(c);

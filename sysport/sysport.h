@@ -135,6 +135,9 @@ typedef __int64 int64_t;
 #else
 #define FOLDERSEP "/"
 #endif
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* path names */
 extern int isfoldersep(int x);
@@ -153,6 +156,9 @@ typedef int64_t myclock_t;
 
 extern myclock_t myclock(void);
 extern myclock_t ticks_per_sec(void);
+#ifdef __cplusplus
+}
+#endif
 
 #define MYCLOCKS_PER_SEC (ticks_per_sec())
 #define GET_TICK (myclock())
@@ -249,6 +255,9 @@ typedef HANDLE mysem_t;
 #else
 #error Definition of threads not present
 #endif
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 extern int /*boolean*/ mythread_create(/*@out@*/ mythread_t* thread,
                                        routine_t start_routine, void* arg,
@@ -276,13 +285,22 @@ extern int /*boolean*/ mysem_destroy(mysem_t* sem);
 #if (defined(UNNAMED_SEMAPHORES) || defined(MY_SEMAPHORES))
 extern int /*boolean*/ mysem_getvalue(mysem_t* sem, int* pval);
 #endif
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 
 /* end MULTI_THREADED_INTERFACE*/
 #endif
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 extern void semaphore_system_init(void);
 extern void semaphore_system_done(void);
+#ifdef __cplusplus
+}
+#endif
 
 /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/

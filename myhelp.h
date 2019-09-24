@@ -24,6 +24,9 @@
 
 #include <stdio.h>
 #include "myopt/myopt.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 struct helpline {
   int c;
@@ -41,6 +44,9 @@ extern struct option* optionlist_new(struct helpline* hl);
 extern void optionlist_done(struct option* o);
 
 extern char* optionshort_build(struct helpline* hl, char* opt_input);
+#ifdef __cplusplus
+}
+#endif
 
 /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 #endif
