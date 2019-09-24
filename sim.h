@@ -25,7 +25,7 @@
 #include "boolean.h"
 #include "mytypes.h"
 
-#include "sysport.h"
+#include "sysport/sysport.h"
 
 extern mythread_mutex_t Smpcount;
 extern mythread_mutex_t Groupmtx;

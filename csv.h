@@ -27,17 +27,23 @@
 
 //FIXME make dynamic
 #define MAXSIZE_CSVLINE 4096
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-struct csv_line {
-	int 	n;
-	char 	*mem; // points to block of memory
-	char 	*s[MAXSIZE_CSVLINE]; //FIXME make it dynamic
-};
+	struct csv_line {
+		int 	n;
+		char 	*mem; // points to block of memory
+		char 	*s[MAXSIZE_CSVLINE]; //FIXME make it dynamic
+	};
 
-typedef struct csv_line csv_line_t;
+	typedef struct csv_line csv_line_t;
 
-extern bool_t 	csv_line_init(csv_line_t *c, char *p);
-extern void 	csv_line_done(csv_line_t *c);
+	extern bool_t 	csv_line_init(csv_line_t *c, char *p);
+	extern void 	csv_line_done(csv_line_t *c);
+#ifdef __cplusplus
+}
+#endif
 
 /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 #endif

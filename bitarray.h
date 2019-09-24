@@ -24,22 +24,28 @@
 /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
 #include "mytypes.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-typedef uint64_t pod_t;
+	typedef uint64_t pod_t;
 
-struct BITARRAY {
-	pod_t *		pod;
-	player_t 	max;
-};
+	struct BITARRAY {
+		pod_t *		pod;
+		player_t 	max;
+	};
 
-typedef struct BITARRAY bitarray_t;
+	typedef struct BITARRAY bitarray_t;
 
-extern void 	ba_put(struct BITARRAY *ba, player_t x);
-extern bool_t 	ba_ison(struct BITARRAY *ba, player_t x);
-extern void 	ba_clear (struct BITARRAY *ba);
-extern void		ba_setnot (struct BITARRAY *ba);
-extern bool_t 	ba_init(struct BITARRAY *ba, player_t max);
-extern void 	ba_done(struct BITARRAY *ba);
+	extern void 	ba_put(struct BITARRAY *ba, player_t x);
+	extern bool_t 	ba_ison(struct BITARRAY *ba, player_t x);
+	extern void 	ba_clear(struct BITARRAY *ba);
+	extern void		ba_setnot(struct BITARRAY *ba);
+	extern bool_t 	ba_init(struct BITARRAY *ba, player_t max);
+	extern void 	ba_done(struct BITARRAY *ba);
+#ifdef __cplusplus
+}
+#endif
 
 /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 #endif

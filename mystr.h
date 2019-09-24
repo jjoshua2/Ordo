@@ -35,9 +35,14 @@
 /*--------------------------*
 	Function prototypes
  *--------------------------*/
+#ifdef __cplusplus
+extern "C" {
+#endif
+	void mystrncpy(char *s, const char* p, int n);
 
-void mystrncpy (char *s, const char* p, int n);
-
+#ifdef __cplusplus
+}
+#endif
 
 /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 #endif

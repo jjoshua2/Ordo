@@ -36,5 +36,8 @@ tmp/*
 csvfolder/*
 manchor_fix.c
 merging2/*
+Debug/*
+Release/*
 
 
+*.user

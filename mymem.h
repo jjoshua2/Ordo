@@ -25,6 +25,9 @@
 
 #include <assert.h>
 #include <stdlib.h>
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #ifdef NDEBUG
 
@@ -36,9 +39,12 @@
 #define memnew(x) _Memnew((x))
 #define memrel(x) _Memrel((x))
 
-extern void * _Memnew(size_t x);
-extern void _Memrel(void *p);
+	extern void * _Memnew(size_t x);
+	extern void _Memrel(void *p);
 
+#endif
+#ifdef __cplusplus
+}
 #endif
 
 /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/

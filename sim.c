@@ -203,7 +203,7 @@ save_simulated(struct PLAYERS *pPlayers, struct GAMES *pGames, int num)
 }
 
 //========================================================================
-#include "sysport.h"
+#include "sysport/sysport.h"
 
 mythread_mutex_t Smpcount;
 mythread_mutex_t Groupmtx;

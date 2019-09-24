@@ -29,25 +29,33 @@
 #include "strlist.h"
 #include "bitarray.h"
 
+#include "mytypes.h"
+
 enum RESULTS {
 	WHITE_WIN = 0,
 	RESULT_DRAW = 1,
 	BLACK_WIN = 2,
 	DISCARD = 3,
-	IGNORED = 4
+	IGNORED = 4,
+	PGN_MULTI = 5,
 };
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-extern struct DATA *database_init_frompgn (strlist_t *sl, const char *synfile_name, bool_t quiet);
-extern void 		database_done (struct DATA *p);
+	extern struct DATA *database_init_frompgn(strlist_t *sl, const char *synfile_name, bool_t quiet);
+	extern void 		database_done(struct DATA *p);
 
-#include "mytypes.h"
+	extern void 		database_transform(const struct DATA *db, struct GAMES *g, struct PLAYERS *p, struct GAMESTATS *gs);
+	extern void 		database_ignore_draws(struct DATA *db);
+	extern const char *	database_getname(const struct DATA *db, player_t i);
+	extern void 		database_include_only(struct DATA *db, bitarray_t *pba);
 
-extern void 		database_transform(const struct DATA *db, struct GAMES *g, struct PLAYERS *p, struct GAMESTATS *gs);
-extern void 		database_ignore_draws (struct DATA *db);
-extern const char *	database_getname (const struct DATA *db, player_t i);
-extern void 		database_include_only (struct DATA *db, bitarray_t *pba);
+	extern void 		namelist_to_bitarray(bool_t quietmode, bool_t do_warning, const char *finp_name, const struct DATA *d, bitarray_t *pba);
 
-extern void 		namelist_to_bitarray (bool_t quietmode, bool_t do_warning, const char *finp_name, const struct DATA *d, bitarray_t *pba);
+#ifdef __cplusplus
+}
+#endif
 
 /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 #endif

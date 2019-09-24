@@ -53,6 +53,7 @@ struct pgn_result {
 	int 	btag_present;
 	int 	result_present;	
 	int 	result;
+	int w, d, l;
 	char 	wtag[PGNSTRSIZE];
 	char 	btag[PGNSTRSIZE];
 };
@@ -86,7 +87,7 @@ structdata_init (void)
 	struct NAMEBLOCK *t = NULL;
 	bool_t ok = TRUE;
 
-	ok = ok && NULL != (d = memnew (sizeof(struct DATA)));
+	ok = ok && NULL != (d = (DATA*)memnew (sizeof(struct DATA)));
 	if (ok) {
 		d->labels_head.buf = NULL;
 		d->labels_head.nxt = NULL;
@@ -104,11 +105,11 @@ structdata_init (void)
 		d->nm_idx = 0;
 		d->nm_allocated = 0;
 
-		ok = ok && NULL != (p = memnew (sizeof(struct GAMEBLOCK)));
+		ok = ok && NULL != (p = (GAMEBLOCK*)memnew (sizeof(struct GAMEBLOCK)));
 		if (ok)	d->gb_allocated++;
 		d->gb[0] = p;
 
-		ok = ok && NULL != (t = memnew (sizeof(struct NAMEBLOCK)));
+		ok = ok && NULL != (t = (NAMEBLOCK*)memnew (sizeof(struct NAMEBLOCK)));
 		if (ok)	d->nm_allocated++;
 		d->nm[0] = t;
 
@@ -400,7 +401,7 @@ addname (struct DATA *d, const char *s)
 	if (!ok) {
 		assert (d->curr->nxt == NULL);
 		assert (d->curr->idx == 0);
-		ok = NULL != (bf = memnew (LABELBUFFERSIZE));
+		ok = NULL != (bf = (char*)memnew (LABELBUFFERSIZE));
 		if (ok) {
 			bf[0] = '\0';
 			d->curr->buf = bf;
@@ -414,9 +415,9 @@ addname (struct DATA *d, const char *s)
 	ok = ok && (LABELBUFFERSIZE > d->curr->idx + sz);
 
 	if (!ok) {
-		ok = NULL != (nd = memnew (sizeof(namenode_t)));
+		ok = NULL != (nd = (namenode_t*)memnew (sizeof(namenode_t)));
 		if (ok) {
-			ok = NULL != (bf = memnew (LABELBUFFERSIZE));
+			ok = NULL != (bf = (char*)memnew (LABELBUFFERSIZE));
 			if (ok) bf[0] = '\0'; else memrel(nd);
 		}
 
@@ -466,7 +467,7 @@ addplayer (struct DATA *d, const char *s, player_t *idx)
 			d->nm_idx = 0;
 			d->nm_filled++;
 
-			success = NULL != (nm = memnew (sizeof(struct NAMEBLOCK)));
+			success = NULL != (nm = (NAMEBLOCK*)memnew (sizeof(struct NAMEBLOCK)));
 			if (success) {
 				d->nm_allocated++;
 			}
@@ -693,6 +694,9 @@ pgn_result_reset (struct pgn_result *p)
 	p->wtag[0] = '\0';
 	p->btag[0] = '\0';
 	p->result = 0;
+	p->w = 0;
+	p->d = 0;
+	p->l = 0;
 }
 
 static bool_t
@@ -722,9 +726,55 @@ pgn_result_collect (struct pgn_result *p, struct DATA *d)
 	}
 	j = plyr;
 
-	ok = ok && (uint64_t)d->n_games < ((uint64_t)MAXGAMESxBLOCK*(uint64_t)MAXBLOCKS);
+	assert(i != NOPLAYER && j != NOPLAYER);
 
-	assert (i != NOPLAYER && j != NOPLAYER);
+	if (p->result == PGN_MULTI) {
+		ok = ok && (uint64_t)d->n_games + p->w + p->l + p->d <= ((uint64_t)MAXGAMESxBLOCK*(uint64_t)MAXBLOCKS);
+
+		if (ok) {
+			for (int loop = 0; loop < p->w + p->l + p->d && ok; loop++) {
+				struct GAMEBLOCK *g;
+
+				size_t idx = d->gb_idx;
+				size_t blk = d->gb_filled;
+
+				d->gb[blk]->white[idx] = i;
+				d->gb[blk]->black[idx] = j;
+				if (loop < p->w) {
+					d->gb[blk]->score[idx] = WHITE_WIN;
+				}
+				else if (loop < p->w+p->l) {
+					d->gb[blk]->score[idx] = BLACK_WIN;
+				}
+				else {
+					d->gb[blk]->score[idx] = RESULT_DRAW;
+				}
+				d->n_games++;
+				d->gb_idx++;
+
+				if (d->gb_idx == MAXGAMESxBLOCK) { // hit new block
+
+					d->gb_idx = 0;
+					d->gb_filled++;
+
+					blk = d->gb_filled;
+					if (NULL == (g = (GAMEBLOCK*)memnew(sizeof(struct GAMEBLOCK) * (size_t)1))) {
+						d->gb[blk] = NULL;
+						ok = FALSE; // failed
+					}
+					else {
+						d->gb[blk] = g;
+						d->gb_allocated++;
+						ok = TRUE;
+					}
+				}
+			}
+		}
+
+		return ok;
+	}
+
+	ok = ok && (uint64_t)d->n_games < ((uint64_t)MAXGAMESxBLOCK*(uint64_t)MAXBLOCKS);
 
 	if (ok) {
 
@@ -745,7 +795,7 @@ pgn_result_collect (struct pgn_result *p, struct DATA *d)
 			d->gb_filled++;
 
 			blk = d->gb_filled;
-			if (NULL == (g = memnew (sizeof(struct GAMEBLOCK) * (size_t)1))) {
+			if (NULL == (g = (GAMEBLOCK*)memnew (sizeof(struct GAMEBLOCK) * (size_t)1))) {
 				d->gb[blk] = NULL;
 				ok = FALSE; // failed
 			} else {
@@ -775,6 +825,7 @@ parsing_error(long line_counter)
 	exit(EXIT_FAILURE);
 }
 
+#include <sstream>
 
 static bool_t
 fpgnscan (FILE *fpgn, bool_t quiet, struct DATA *d)
@@ -789,8 +840,10 @@ fpgnscan (FILE *fpgn, bool_t quiet, struct DATA *d)
 	const char *blackend = "\"]";
 	const char *resulsep = "[Result \"";
 	const char *resulend = "\"]";
+	const char *resulssep = "[Results \"";
+	const char *resulsend = "\"]";
 
-	size_t whitesep_len, blacksep_len, resulsep_len;
+	size_t whitesep_len, blacksep_len, resulsep_len, resulssep_len;
 	char *x, *y;
 
 	struct pgn_result 	result;
@@ -809,6 +862,7 @@ fpgnscan (FILE *fpgn, bool_t quiet, struct DATA *d)
 	whitesep_len = strlen(whitesep); 
 	blacksep_len = strlen(blacksep); 
 	resulsep_len = strlen(resulsep); 
+	resulssep_len = strlen(resulssep);
 
 	while (NULL != fgets(myline, MAX_MYLINE, fpgn)) {
 
@@ -843,6 +897,23 @@ fpgnscan (FILE *fpgn, bool_t quiet, struct DATA *d)
 						result.result = res2int (x);
 						result.result_present = TRUE;
 			} else {
+				parsing_error(line_counter);
+			}
+		}
+		if (NULL != (x = strstr(myline, resulssep))) {
+			x += resulssep_len;
+			if (NULL != (y = strstr(myline, resulsend))) {
+				*y = '\0';
+				result.result = PGN_MULTI;
+				std::istringstream iss(x);
+				int w, d, l;
+				iss >> w >> l >> d;
+				result.w = w;
+				result.l = l;
+				result.d = d;
+				result.result_present = TRUE;
+			}
+			else {
 				parsing_error(line_counter);
 			}
 		}

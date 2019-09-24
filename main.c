@@ -57,7 +57,7 @@
 #include "ra.h"
 #include "sim.h"
 #include "summations.h"
-#include "myopt.h"
+#include "myopt/myopt.h"
 #include "sysport/sysport.h"
 
 #include "mytimer.h"

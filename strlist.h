@@ -24,31 +24,38 @@
 /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
 #include "boolean.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-struct STRNODE;
+	struct STRNODE;
 
-struct STRNODE {
-	char *str;
-	struct STRNODE *nxt;	
-};
+	struct STRNODE {
+		char *str;
+		struct STRNODE *nxt;
+	};
 
-typedef struct STRNODE strnode_t;
+	typedef struct STRNODE strnode_t;
 
-struct STRLIST {
-	strnode_t prehead;
-	strnode_t *curr;
-	strnode_t *last;
-};
+	struct STRLIST {
+		strnode_t prehead;
+		strnode_t *curr;
+		strnode_t *last;
+	};
 
-typedef struct STRLIST strlist_t;
+	typedef struct STRLIST strlist_t;
 
-//-------------------------------------------------
+	//-------------------------------------------------
 
-extern bool_t 		strlist_init (strlist_t *sl);
-extern void 		strlist_done (strlist_t *sl);
-extern bool_t 		strlist_push (strlist_t *sl, const char *s);
-extern void 		strlist_rwnd (strlist_t *sl);
-extern const char *	strlist_next (strlist_t *sl);
+	extern bool_t 		strlist_init(strlist_t *sl);
+	extern void 		strlist_done(strlist_t *sl);
+	extern bool_t 		strlist_push(strlist_t *sl, const char *s);
+	extern void 		strlist_rwnd(strlist_t *sl);
+	extern const char *	strlist_next(strlist_t *sl);
+
+#ifdef __cplusplus
+}
+#endif
 
 /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 #endif
