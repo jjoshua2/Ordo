@@ -32,6 +32,7 @@
 #include "xpect.h"
 
 #include "mytimer.h"
+#include "pgnget.h"
 
 #define START_DELTA 100
 #define MIN_DEVIA 0.0000001
@@ -504,7 +505,15 @@ gamesnum_t calc_rating_ordo(bool_t quiet, bool_t adjust_white_advantage,
 
                             ,
                             double* pWhite_advantage, double* pDraw_date) {
-  gamesnum_t n_games = g->n;
+  gamesnum_t total_games = 0;
+  for (int i = 0; i < g->n; i++) {
+    if (g->ga[i].score == PGN_MULTI)
+    {
+      total_games += g->ga[i].W + g->ga[i].D + g->ga[i].L;
+    } else {
+      total_games += 1;
+    }
+  }
   double* ratingtmp = ratingtmp_buffer;
   double olddev, curdev;
   int i;
@@ -639,7 +648,7 @@ gamesnum_t calc_rating_ordo(bool_t quiet, bool_t adjust_white_advantage,
           kk *= (1.0 - 1.0 / KK_DAMP);  // kk *= 0.995;
         }
 
-        done = get_outputdev(curdev, n_games) < min_devia &&
+        done = get_outputdev(curdev, total_games) < min_devia &&
                (absol(resol) + absol(cd)) < MIN_RESOL;
 
       }  // end rounds
@@ -648,7 +657,7 @@ gamesnum_t calc_rating_ordo(bool_t quiet, bool_t adjust_white_advantage,
       kappa *= damp_kappa;
 
       if (!quiet) {
-        printf("%3d %7d %16.9f", phase, i, get_outputdev(curdev, n_games));
+        printf("%3d %7d %16.9f", phase, i, get_outputdev(curdev, total_games));
         printf("%14.5f", resol);
         //	printf ("%10.5lf",ratings_rmsd(n_players, ratingof, RAT));
         printf("\n");

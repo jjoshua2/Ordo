@@ -28,6 +28,7 @@
 #include "mymem.h"
 #include "ratingb.h"
 #include "xpect.h"
+#include "pgnget.h"
 
 #define MIN_RESOLUTION 0.000001
 #define MIN_DRAW_RATE_RESOLUTION 0.00001
@@ -196,7 +197,14 @@ gamesnum_t calc_rating_bayes(bool_t quiet, bool_t adjust_white_advantage,
 
                              ,
                              double* pwadv, double* pDraw_date) {
-  gamesnum_t n_games = g->n;
+  gamesnum_t total_games = 0;
+  for (int i = 0; i < g->n; i++) {
+    if (g->ga[i].score == PGN_MULTI) {
+      total_games += g->ga[i].W + g->ga[i].D + g->ga[i].L;
+    } else {
+      total_games += 1;
+    }
+  }
   double olddev, curdev, outputdev;
   int i;
   int rounds = 10000;
@@ -282,7 +290,7 @@ gamesnum_t calc_rating_bayes(bool_t quiet, bool_t adjust_white_advantage,
     }
 
     delta /= denom;
-    outputdev = curdev / (double)n_games;
+    outputdev = curdev / (double)total_games;
 
     if (!quiet) {
       printf("%3d %7d %14.5f", phase, i, outputdev);

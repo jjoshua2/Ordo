@@ -974,15 +974,22 @@ int main(int argc, char* argv[]) {
   /*==== report, input checked ====*/
 
   if (!quiet_mode) {
+    gamesnum_t total_games = 0;
+    for (int i = 0; i < Games.n; i++) {
+      if (Games.ga[i].score == PGN_MULTI) {
+        total_games += Games.ga[i].W + Games.ga[i].D + Games.ga[i].L;
+      } else {
+        total_games += 1;
+      }
+    }
     printf("Total games            %8ld\n",
-           (long)(Game_stats.white_wins + Game_stats.draws +
-                  Game_stats.black_wins + Game_stats.noresult));
+           (long)(total_games));
     printf(" - White wins          %8ld\n", (long)Game_stats.white_wins);
     printf(" - Draws               %8ld\n", (long)Game_stats.draws);
     printf(" - Black wins          %8ld\n", (long)Game_stats.black_wins);
     printf(" - Truncated/Discarded %8ld\n", (long)Game_stats.noresult);
     printf("Unique head to head    %8.2f%s\n",
-           100.0 * (double)Encounters.n / (double)Games.n, "%");
+           100.0 * (double)Encounters.n / (double)total_games, "%");
     if (Anchor_use) {
       printf("Reference rating    %8.1lf", General_average);
       printf(" (set to \"%s\")\n", Anchor_name);
