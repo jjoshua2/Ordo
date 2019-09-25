@@ -121,6 +121,8 @@ static int rand_threeway_wscore(double pwin, double pdraw) {
   }
 }
 
+#include <random>
+
 // no globals
 static void simulate_scores(const double* ratingof_results, double deq,
                             double wadv, double beta, struct GAMES* g  // output
@@ -133,13 +135,29 @@ static void simulate_scores(const double* ratingof_results, double deq,
   const double* rating = ratingof_results;
   double pwin, pdraw, plos;
   assert(deq <= 1 && deq >= 0);
+  std::random_device rd;
+  std::mt19937 gen(rd());
 
   for (i = 0; i < n_games; i++) {
     if (gam[i].score != DISCARD) {
       w = gam[i].whiteplayer;
       b = gam[i].blackplayer;
       get_pWDL(rating[w] + wadv - rating[b], &pwin, &pdraw, &plos, deq, beta);
-      gam[i].score = rand_threeway_wscore(pwin, pdraw);
+      if (gam[i].score == PGN_MULTI) {
+        // Fast multigame sampling using two calls to binomial distribution.
+        gamesnum_t total = gam[i].W + gam[i].D + gam[i].L;
+        std::binomial_distribution<> wd(total, pwin);
+        gam[i].W = wd(gen);
+        if (gam[i].W != total) {
+          std::binomial_distribution<> dd(total - gam[i].W, pdraw);
+          gam[i].D = dd(gen);
+        } else {
+          gam[i].D = 0;
+        }
+        gam[i].L = total - gam[i].W - gam[i].D;
+      } else {
+        gam[i].score = rand_threeway_wscore(pwin, pdraw);
+      }
     }
   }
 }
@@ -176,7 +194,12 @@ void save_simulated(struct PLAYERS* pPlayers, struct GAMES* pGames, int num) {
 
       fprintf(fout, "[White \"%s\"]\n", name_w);
       fprintf(fout, "[Black \"%s\"]\n", name_b);
-      fprintf(fout, "[Result \"%s\"]\n", result);
+      if (score_i == PGN_MULTI) {
+        fprintf(fout, "[Results \"%lld %lld %lld\"]\n", pGames->ga[i].W,
+                pGames->ga[i].L, pGames->ga[i].D);
+      } else {
+        fprintf(fout, "[Result \"%s\"]\n", result);
+      }
       fprintf(fout, "%s\n\n", result);
     }
 

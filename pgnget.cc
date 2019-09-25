@@ -261,7 +261,16 @@ void database_transform(const struct DATA* db, struct GAMES* g,
         g->ga[i].whiteplayer = wp = db->gb[blk]->white[idx];
         g->ga[i].blackplayer = bp = db->gb[blk]->black[idx];
         g->ga[i].score = db->gb[blk]->score[idx];
-        if (g->ga[i].score < MAXRESTYPE) gamestat[g->ga[i].score]++;
+        g->ga[i].W = db->gb[blk]->W[idx];
+        g->ga[i].D = db->gb[blk]->D[idx];
+        g->ga[i].L = db->gb[blk]->L[idx];
+        if (g->ga[i].score == PGN_MULTI) {
+          gamestat[WHITE_WIN] += g->ga[i].W;
+          gamestat[RESULT_DRAW] += g->ga[i].D;
+          gamestat[BLACK_WIN] += g->ga[i].L;
+        } else if (g->ga[i].score < MAXRESTYPE) {
+          gamestat[g->ga[i].score]++;
+        }
 
         if (g->ga[i].score < DISCARD) {
           p->present_in_games[wp] = TRUE;
@@ -278,7 +287,16 @@ void database_transform(const struct DATA* db, struct GAMES* g,
       g->ga[i].whiteplayer = wp = db->gb[blk]->white[idx];
       g->ga[i].blackplayer = bp = db->gb[blk]->black[idx];
       g->ga[i].score = db->gb[blk]->score[idx];
-      if (g->ga[i].score < MAXRESTYPE) gamestat[g->ga[i].score]++;
+      g->ga[i].W = db->gb[blk]->W[idx];
+      g->ga[i].D = db->gb[blk]->D[idx];
+      g->ga[i].L = db->gb[blk]->L[idx];
+      if (g->ga[i].score == PGN_MULTI) {
+        gamestat[WHITE_WIN] += g->ga[i].W;
+        gamestat[RESULT_DRAW] += g->ga[i].D;
+        gamestat[BLACK_WIN] += g->ga[i].L;
+      } else if (g->ga[i].score < MAXRESTYPE) {
+        gamestat[g->ga[i].score]++;
+      }
 
       if (g->ga[i].score < DISCARD) {
         p->present_in_games[wp] = TRUE;
@@ -318,16 +336,31 @@ void database_ignore_draws(struct DATA* db) {
 
   for (blk = 0; blk < blk_filled; blk++) {
     for (idx = 0; idx < MAXGAMESxBLOCK; idx++) {
-      if (db->gb[blk]->score[idx] == RESULT_DRAW)
+      if (db->gb[blk]->score[idx] == RESULT_DRAW) {
         db->gb[blk]->score[idx] |= IGNORED;
+      } else if (db->gb[blk]->score[idx] == PGN_MULTI) {
+        // TODO: keep the ignored draws in a special holder in order to count them to overall totals?
+        db->gb[blk]->D[idx] = 0;
+        if (db->gb[blk]->W[idx] + db->gb[blk]->L[idx] == 0) {
+          db->gb[blk]->score[idx] = IGNORED | RESULT_DRAW;
+        }
+      }
     }
   }
 
   blk = blk_filled;
 
   for (idx = 0; idx < idx_last; idx++) {
-    if (db->gb[blk]->score[idx] == RESULT_DRAW)
+    if (db->gb[blk]->score[idx] == RESULT_DRAW) {
       db->gb[blk]->score[idx] |= IGNORED;
+    } else if (db->gb[blk]->score[idx] == PGN_MULTI) {
+      // TODO: keep the ignored draws in a special holder in order to count them
+      // to overall totals?
+      db->gb[blk]->D[idx] = 0;
+      if (db->gb[blk]->W[idx] + db->gb[blk]->L[idx] == 0) {
+        db->gb[blk]->score[idx] = IGNORED | RESULT_DRAW;
+      }
+    }
   }
 
   return;
@@ -346,8 +379,14 @@ void database_include_only(struct DATA* db, bitarray_t* pba) {
     for (idx = 0; idx < MAXGAMESxBLOCK; idx++) {
       wp = db->gb[blk]->white[idx];
       bp = db->gb[blk]->black[idx];
-      if (!ba_ison(pba, wp) || !ba_ison(pba, bp))
-        db->gb[blk]->score[idx] |= IGNORED;
+      if (!ba_ison(pba, wp) || !ba_ison(pba, bp)) {
+        if (db->gb[blk]->score[idx] == PGN_MULTI) {
+          // TODO: keep the counts somewhere for overall stats.
+          db->gb[blk]->score[idx] = IGNORED;
+        } else {
+          db->gb[blk]->score[idx] |= IGNORED;
+        }
+      }
     }
   }
 
@@ -356,8 +395,14 @@ void database_include_only(struct DATA* db, bitarray_t* pba) {
   for (idx = 0; idx < idx_last; idx++) {
     wp = db->gb[blk]->white[idx];
     bp = db->gb[blk]->black[idx];
-    if (!ba_ison(pba, wp) || !ba_ison(pba, bp))
-      db->gb[blk]->score[idx] |= IGNORED;
+    if (!ba_ison(pba, wp) || !ba_ison(pba, bp)) {
+      if (db->gb[blk]->score[idx] == PGN_MULTI) {
+        // TODO: keep the counts somewhere for overall stats.
+        db->gb[blk]->score[idx] = IGNORED;
+      } else {
+        db->gb[blk]->score[idx] |= IGNORED;
+      }
+    }
   }
 
   return;
@@ -693,50 +738,6 @@ static bool_t pgn_result_collect(struct pgn_result* p, struct DATA* d) {
 
   assert(i != NOPLAYER && j != NOPLAYER);
 
-  if (p->result == PGN_MULTI) {
-    ok = ok && (uint64_t)d->n_games + p->w + p->l + p->d <=
-                   ((uint64_t)MAXGAMESxBLOCK * (uint64_t)MAXBLOCKS);
-
-    if (ok) {
-      for (int loop = 0; loop < p->w + p->l + p->d && ok; loop++) {
-        struct GAMEBLOCK* g;
-
-        size_t idx = d->gb_idx;
-        size_t blk = d->gb_filled;
-
-        d->gb[blk]->white[idx] = i;
-        d->gb[blk]->black[idx] = j;
-        if (loop < p->w) {
-          d->gb[blk]->score[idx] = WHITE_WIN;
-        } else if (loop < p->w + p->l) {
-          d->gb[blk]->score[idx] = BLACK_WIN;
-        } else {
-          d->gb[blk]->score[idx] = RESULT_DRAW;
-        }
-        d->n_games++;
-        d->gb_idx++;
-
-        if (d->gb_idx == MAXGAMESxBLOCK) {  // hit new block
-
-          d->gb_idx = 0;
-          d->gb_filled++;
-
-          blk = d->gb_filled;
-          if (NULL ==
-              (g = (GAMEBLOCK*)memnew(sizeof(struct GAMEBLOCK) * (size_t)1))) {
-            d->gb[blk] = NULL;
-            ok = FALSE;  // failed
-          } else {
-            d->gb[blk] = g;
-            d->gb_allocated++;
-            ok = TRUE;
-          }
-        }
-      }
-    }
-
-    return ok;
-  }
 
   ok = ok &&
        (uint64_t)d->n_games < ((uint64_t)MAXGAMESxBLOCK * (uint64_t)MAXBLOCKS);
@@ -750,6 +751,11 @@ static bool_t pgn_result_collect(struct pgn_result* p, struct DATA* d) {
     d->gb[blk]->white[idx] = i;
     d->gb[blk]->black[idx] = j;
     d->gb[blk]->score[idx] = p->result;
+    if (p->result == PGN_MULTI) {
+      d->gb[blk]->W[idx] = p->w;
+      d->gb[blk]->D[idx] = p->d;
+      d->gb[blk]->L[idx] = p->l;
+    }
     d->n_games++;
     d->gb_idx++;
 

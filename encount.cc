@@ -153,6 +153,12 @@ static gamesnum_t calc_encounters(int selectivity, const struct GAMES* g,
           enc[e].wscore = 0.0;
           enc[e].L = 1;
           break;
+        case PGN_MULTI:
+          enc[e].wscore = gam[i].W + gam[i].D * 0.5;
+          enc[e].W = gam[i].W;
+          enc[e].D = gam[i].D;
+          enc[e].L = gam[i].L;
+          enc[e].played = gam[i].W + gam[i].D + gam[i].L;
       }
       e++;
     }

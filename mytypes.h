@@ -86,6 +86,9 @@ typedef int64_t player_t;
 struct gamei {
   player_t whiteplayer;
   player_t blackplayer;
+  gamesnum_t W;
+  gamesnum_t D;
+  gamesnum_t L;
   int32_t score;
 };
 

@@ -36,7 +36,7 @@ enum RESULTS {
   BLACK_WIN = 2,
   DISCARD = 3,
   IGNORED = 4,
-  PGN_MULTI = 5,
+  PGN_MULTI = -1,
 };
 #ifdef __cplusplus
 extern "C" {

@@ -33,6 +33,9 @@ struct NAMEBLOCK {
 struct GAMEBLOCK {
   player_t white[MAXGAMESxBLOCK];
   player_t black[MAXGAMESxBLOCK];
+  int32_t W[MAXGAMESxBLOCK];
+  int32_t D[MAXGAMESxBLOCK];
+  int32_t L[MAXGAMESxBLOCK];
   int32_t score[MAXGAMESxBLOCK];
 };
 
