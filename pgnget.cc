@@ -319,9 +319,6 @@ void database_transform(const struct DATA* db, struct GAMES* g,
                  gamestat[IGNORED | RESULT_DRAW] +
                  gamestat[IGNORED | BLACK_WIN];
 
-  assert((long)g->n ==
-         (gs->white_wins + gs->draws + gs->black_wins + gs->noresult));
-
   return;
 }
 
