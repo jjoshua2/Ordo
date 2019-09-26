@@ -1,7 +1,7 @@
 CXX = g++
 CFLAGS = -DNDEBUG -DMY_SEMAPHORES -flto -I myopt -I sysport
 CFLAGSD = -g -DMY_SEMAPHORES -I myopt -I sysport
-WARN = -Wwrite-strings -Wconversion -Wshadow -Wparentheses -Wlogical-op -Wunused -Wmissing-prototypes -Wmissing-declarations -Wdeclaration-after-statement -W -Wall -Wextra
+WARN = -Wwrite-strings -Wconversion -Wshadow -Wparentheses -Wlogical-op -Wunused -Wmissing-declarations -W -Wall -Wextra
 OPT = -O3
 LIBFLAGS = -lm -lpthread
 
