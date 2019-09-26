@@ -101,24 +101,24 @@
   <ItemGroup>
     <ClCompile Include="bitarray.cc" />
     <ClCompile Include="cegt.cc" />
-    <ClCompile Include="csv.c" />
+    <ClCompile Include="csv.cc" />
     <ClCompile Include="encount.cc" />
-    <ClCompile Include="fit1d.c" />
-    <ClCompile Include="gauss.c" />
+    <ClCompile Include="fit1d.cc" />
+    <ClCompile Include="gauss.cc" />
     <ClCompile Include="groups.cc" />
     <ClCompile Include="indiv.cc" />
     <ClCompile Include="inidone.cc" />
-    <ClCompile Include="justify.c" />
+    <ClCompile Include="justify.cc" />
     <ClCompile Include="main.cc" />
-    <ClCompile Include="myhelp.c" />
-    <ClCompile Include="mymem.c" />
-    <ClCompile Include="myopt\myopt.c" />
-    <ClCompile Include="mystr.c" />
-    <ClCompile Include="mytimer.c" />
+    <ClCompile Include="myhelp.cc" />
+    <ClCompile Include="mymem.cc" />
+    <ClCompile Include="myopt\myopt.cc" />
+    <ClCompile Include="mystr.cc" />
+    <ClCompile Include="mytimer.cc" />
     <ClCompile Include="namehash.cc" />
     <ClCompile Include="pgnget.cc" />
     <ClCompile Include="plyrs.cc" />
-    <ClCompile Include="proginfo.c" />
+    <ClCompile Include="proginfo.cc" />
     <ClCompile Include="ra.cc" />
     <ClCompile Include="randfast.cc" />
     <ClCompile Include="rating.cc" />
@@ -128,10 +128,10 @@
     <ClCompile Include="report.cc" />
     <ClCompile Include="rtngcalc.cc" />
     <ClCompile Include="sim.cc" />
-    <ClCompile Include="strlist.c" />
+    <ClCompile Include="strlist.cc" />
     <ClCompile Include="summations.cc" />
-    <ClCompile Include="sysport\sysport.c" />
-    <ClCompile Include="xpect.c" />
+    <ClCompile Include="sysport\sysport.cc" />
+    <ClCompile Include="xpect.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bitarray.h" />

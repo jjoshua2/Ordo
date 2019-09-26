@@ -24,11 +24,17 @@
 
 #include <stdio.h>
 #include "boolean.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 extern void print_justified(const char* p, int blankheader, int margin,
                             int hor);
 extern void fprint_justified(FILE* f, const char* p, int blankheader,
                              int margin, int hor);
+#ifdef __cplusplus
+}
+#endif
 
 /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 #endif

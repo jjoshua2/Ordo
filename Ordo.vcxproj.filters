@@ -15,45 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="csv.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="fit1d.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="gauss.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="justify.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="myhelp.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="mymem.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="mystr.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="mytimer.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="proginfo.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="strlist.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="xpect.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="myopt\myopt.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="sysport\sysport.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="pgnget.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -112,6 +73,45 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="summations.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="csv.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fit1d.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gauss.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="justify.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="myhelp.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mymem.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mystr.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mytimer.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="myopt\myopt.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sysport\sysport.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="proginfo.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="strlist.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="xpect.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

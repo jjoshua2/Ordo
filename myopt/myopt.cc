@@ -55,7 +55,7 @@ char* opt_arg = NULL;     /* global option argument pointer 	*/
 static char* posn = NULL; /* position in argv[opt_index] 		*/
 
 int options(int argc, char* argv[], const char* legal) {
-  char* legal_index = NULL;
+  const char* legal_index = NULL;
   int letter = 0;
 
   if (NULL == posn || '\0' == *posn) {
@@ -215,7 +215,7 @@ static int optl(int argc, char* const argv[], const struct option* longopts,
 
 int options_l(int argc, char* const argv[], const char* legal,
               const struct option* longopts, int* longindex) {
-  char* legal_index = NULL;
+  const char* legal_index = NULL;
   int letter = 0;
 
   if (NULL == posn || '\0' == *posn) {
