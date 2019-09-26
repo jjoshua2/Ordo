@@ -1,0 +1,8 @@
+image: Visual Studio 2017
+configuration: Release
+build:
+  project: Ordo.sln
+  verbosity: minimal
+artifacts:
+- path: x64\Release\Ordo.exe
+  name: Ordo
