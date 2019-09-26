@@ -272,6 +272,7 @@ static bool_t Prior_mode;
 static void table_output(double Rtng_76);
 
 static int compare_GAME(const void* a, const void* b);
+static gamesnum_t shrink_GAMES(struct gamei* game, gamesnum_t N_game);
 
 static char* skipblanks(char* p) {
   while (isspace(*p)) p++;
@@ -906,6 +907,8 @@ int main(int argc, char* argv[]) {
     return EXIT_FAILURE;
   }
   qsort(Games.ga, (size_t)Games.n, sizeof(struct gamei), compare_GAME);
+  Games.n = shrink_GAMES(Games.ga, Games.n);
+
 
   /*==== more memory initialization ====*/
 
@@ -1265,6 +1268,7 @@ int main(int argc, char* argv[]) {
     /* retransform database, to restore original data */
     database_transform(pdaba, &Games, &Players, &Game_stats);
     qsort(Games.ga, (size_t)Games.n, sizeof(struct gamei), compare_GAME);
+    Games.n = shrink_GAMES(Games.ga, Games.n);
 
     /* recalculate encounters */
     encounters_calculate(ENCOUNTERS_FULL, &Games, Players.flagged, &Encounters);
@@ -1439,8 +1443,17 @@ static void table_output(double rtng_76) {
 static int compare_GAME(const void* a, const void* b) {
   const struct gamei* ap = (const gamei*)a;
   const struct gamei* bp = (const gamei*)b;
-  if (ap->whiteplayer == bp->whiteplayer && ap->blackplayer == bp->blackplayer)
+  // Tie break on score for easier shrinking.
+  if (ap->whiteplayer == bp->whiteplayer && ap->blackplayer == bp->blackplayer && ap->score == bp->score)
     return 0;
+  if (ap->whiteplayer == bp->whiteplayer &&
+      ap->blackplayer == bp->blackplayer) {
+    if (ap->score > bp->score) {
+      return 1;
+    } else {
+      return -1;
+    }
+  }
   if (ap->whiteplayer == bp->whiteplayer) {
     if (ap->blackplayer > bp->blackplayer)
       return 1;
@@ -1453,4 +1466,61 @@ static int compare_GAME(const void* a, const void* b) {
       return -1;
   }
   return 0;
+}
+
+static struct gamei game_merge(const struct gamei* a, const struct gamei* b) {
+  struct gamei r;
+  assert(a->whiteplayer == b->whiteplayer);
+  assert(a->blackplayer == b->blackplayer);
+  assert(a->score < DISCARD);
+  assert(b->score < DISCARD);
+  r.whiteplayer = a->whiteplayer;
+  r.blackplayer = a->blackplayer;
+  r.score = PGN_MULTI;
+  r.W = 0;
+  r.D = 0;
+  r.L = 0;
+  if (a->score == WHITE_WIN) {
+    r.W += 1;
+  } else if (a->score == RESULT_DRAW) {
+    r.D += 1;
+  } else if (a->score == BLACK_WIN) {
+    r.L += 1;
+  } else if (a->score == PGN_MULTI) {
+    r.W += a->W;
+    r.D += a->D;
+    r.L += a->L;
+  }
+  if (b->score == WHITE_WIN) {
+    r.W += 1;
+  } else if (b->score == RESULT_DRAW) {
+    r.D += 1;
+  } else if (b->score == BLACK_WIN) {
+    r.L += 1;
+  } else if (b->score == PGN_MULTI) {
+    r.W += b->W;
+    r.D += b->D;
+    r.L += b->L;
+  }
+  return r;
+}
+
+static gamesnum_t shrink_GAMES(struct gamei* game, gamesnum_t N_game) {
+  gamesnum_t e;
+  gamesnum_t g;
+
+  if (N_game == 0) return 0;
+
+  g = 0;
+  for (e = 1; e < N_game; e++) {
+    if (game[e].whiteplayer == game[g].whiteplayer &&
+        game[e].blackplayer == game[g].blackplayer && game[e].score < DISCARD && game[g].score < DISCARD) {
+      game[g] = game_merge(&game[g], &game[e]);
+    } else {
+      g++;
+      game[g] = game[e];
+    }
+  }
+  g++;
+  return g;  // New N_games
 }
