@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pgnget.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="inidone.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="encount.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sim.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bitarray.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cegt.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="groups.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="indiv.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="namehash.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="plyrs.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ra.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="randfast.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rating.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ratingb.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="relpman.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="relprior.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="report.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rtngcalc.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="summations.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="csv.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fit1d.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gauss.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="justify.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="myhelp.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mymem.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mystr.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mytimer.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="myopt\myopt.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sysport\sysport.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="proginfo.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="strlist.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="xpect.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="bitarray.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="boolean.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cegt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="csv.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="datatype.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="encount.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fit1d.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gauss.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="groups.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="indiv.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inidone.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="justify.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="myhelp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mymem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mystr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mytimer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mytypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="namehash.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ordolim.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pgnget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="plyrs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="proginfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="progname.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ra.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="randfast.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rating.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ratingb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="relpman.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="relprior.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="report.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rtngcalc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sim.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="strlist.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="summations.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="version.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="xpect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="myopt\myopt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sysport\sysport.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
